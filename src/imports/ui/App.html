@@ -1,0 +1,31 @@
+<div id="app">
+  <app-nav />
+    <ul>
+        <li>
+            <router-link v-if="loggedIn" to="/logout">Log out</router-link>
+            <router-link v-if="!loggedIn" to="/login">Log in</router-link>
+        </li>
+    </ul>
+  <main>
+    <router-view />
+  </main>
+
+  <cart v-if="showCart" />
+</div>
+
+
+<script>
+    import auth from './../auth'
+    export default {
+        data () {
+            return {
+                loggedIn: auth.loggedIn()
+            }
+        },
+        created () {
+            auth.onChange = loggedIn => {
+                this.loggedIn = loggedIn
+            }
+        }
+    }
+</script>
